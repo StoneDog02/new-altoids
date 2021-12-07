@@ -5,7 +5,7 @@ import { MotionBlur } from "./components/MotionBlur";
 import { Transform } from "./components/Transform";
 import { Velocity } from "./components/Velocity";
 import { Square } from "./components/Square";
-import { Rect } from "./components/Rect";
+import { ORIGIN, Rect } from "./components/Rect";
 import { useCallback, useEffect, useReducer, useState } from "react";
 const DEBRIS_VELOCITY = 2;
 
@@ -116,7 +116,14 @@ export default function App() {
             }
           ]}
         >
-          <Rect x={210} y={230} width={80} height={40} color="hotpink" />
+          <Rect
+            x={250}
+            y={250}
+            width={80}
+            height={40}
+            color="hotpink"
+            origin={ORIGIN.CENTER}
+          />
         </Transform>
       </Canvas>
     </div>
