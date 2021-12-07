@@ -1,2 +1,2 @@
-# new-altoids
+# astroids
 Created with CodeSandbox
