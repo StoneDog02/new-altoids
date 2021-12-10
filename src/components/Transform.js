@@ -8,7 +8,7 @@ const t = { rotate: 0 };
 const a = [
   {
     targets: t,
-    rotate: 360,
+    rotate: 180,
     loop: true,
     direction: "alternate",
     //  delay: function(el, i) { return i * 100; },
@@ -38,6 +38,6 @@ export function Transform({ transforms = a, ...props }) {
       animation.seek(animation.duration * ((frame % 100) / 100));
     });
   }, [frame, animations]);
-
+  // console.log(state)
   return <TransformContext.Provider value={state} {...props} />;
 }

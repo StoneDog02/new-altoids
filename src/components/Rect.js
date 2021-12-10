@@ -3,12 +3,12 @@ import { TransformContext } from "./Transform";
 import { CanvasContext } from "./Canvas";
 
 export const ORIGIN = { TOP_LEFT: "TOP_LEFT", CENTER: "CENTER" };
-export function Rect({ x, y, color, width, height, origin = ORIGIN }) {
+export function Rect({ x, y, color, width, height, origin = ORIGIN.TOP_LEFT }) {
   const { ctx, frame } = useContext(CanvasContext);
   const { width: canvasWidth, height: canvasHeight } = ctx.canvas;
   const { translate, scale, rotate = 0 } = useContext(TransformContext);
-  const originX = width / 2;
-  const originY = height / 2;
+  const originX = origin === ORIGIN.TOP_LEFT ? 0 : width / 2;
+  const originY = origin === ORIGIN.TOP_LEFT ? 0 : height / 2;
   // console.log(rotate)
   ctx.save();
   ctx.translate(x, y);

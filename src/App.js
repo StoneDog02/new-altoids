@@ -7,6 +7,7 @@ import { Velocity } from "./components/Velocity";
 import { Square } from "./components/Square";
 import { ORIGIN, Rect } from "./components/Rect";
 import { useCallback, useEffect, useReducer, useState } from "react";
+import { Path } from "./components/Path";
 const DEBRIS_VELOCITY = 2;
 
 const initialState = {
@@ -78,7 +79,7 @@ export default function App() {
   return (
     <div className="App">
       <Canvas width="500" height="500">
-        <MotionBlur a={0.5} />
+        <MotionBlur r={42} g={42} b={42} a={0.5} />
         {/* <ClearCanvas /> */}
         <Collisions
           bodies={[
@@ -103,9 +104,10 @@ export default function App() {
           ))}
         </Collisions>
         <Transform
-          transfroms={[
+          transforms={[
             {
-              targets: { rotate: 0 },
+              targets: { rotate: 0, scale: 0.1 },
+              scale: 0.1,
               rotate: 360,
               loop: true,
               direction: "alternate",
@@ -116,11 +118,11 @@ export default function App() {
             }
           ]}
         >
-          <Rect
+          <Path
             x={250}
             y={250}
-            width={80}
-            height={40}
+            width={640}
+            height={512}
             color="hotpink"
             origin={ORIGIN.CENTER}
           />
