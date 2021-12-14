@@ -1,6 +1,7 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useRef } from "react";
 import { CanvasContext } from "./Canvas";
 import anime from "animejs";
+import { ControlsContext } from "./Controls";
 
 export const TransformContext = createContext({});
 
@@ -18,10 +19,20 @@ const a = [
 ];
 export function Transform({ transforms = a, ...props }) {
   const { frame } = useContext(CanvasContext);
+  const { mouseDegrees = 0 } = useContext(ControlsContext);
   const [state, setState] = useState({});
   const [animations, setAnimations] = useState([]);
+
+  const mouseDegreesRef = useRef(0);
+  useEffect(() => {
+    mouseDegreesRef.current = mouseDegrees;
+  });
+  const prevMouseDegrees = mouseDegreesRef.current;
+
   useEffect(() => {
     const animations = transforms.map((transform, idx) => {
+      transform.rotate = mouseDegrees;
+      transform.targets.rotate = prevMouseDegrees;
       return anime({
         autoplay: false,
         ...transform,

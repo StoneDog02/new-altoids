@@ -106,9 +106,9 @@ export default function App() {
         <Transform
           transforms={[
             {
-              targets: { rotate: 0, scale: 0.1 },
+              targets: { rotate: "CONTROLS__MOUSE_DEGREES", scale: 0.1 },
               scale: 0.1,
-              rotate: 360,
+              rotate: "CONTROLS__MOUSE_DEGREES",
               loop: true,
               direction: "alternate",
               duration: 50000,

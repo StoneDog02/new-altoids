@@ -7,6 +7,7 @@ import {
   useRef
 } from "react";
 import { Collisions } from "./Collisions";
+import { Controls } from "./Controls";
 import { Transform } from "./Transform";
 
 export const CanvasContext = createContext({
@@ -39,56 +40,19 @@ export function Canvas({ children, ...props }) {
       window.cancelAnimationFrame(raf);
     };
   }, [draw]);
-  function calcAngle(opposite, adjacent) {
-    return Math.atan(opposite / adjacent);
-  }
-
-  function getMousePos(canvas, evt) {
-    const rect = canvas.getBoundingClientRect();
-    return {
-      x: evt.clientX - rect.left,
-      y: evt.clientY - rect.top
-    };
-  }
-  function hippo(sideOne, sideTwo) {
-    return Math.sqrt(sideOne * sideOne + sideTwo * sideTwo);
-  }
-  function draw2(evt) {
-    const pos = getMousePos(canvasNode, evt);
-    const sideOne = 250;
-    // Quad 1
-    if (pos.x > 250 && pos.y <= 250) {
-      const sideTwo = hippo(pos.x - 250, 250 - pos.y);
-      const radians =
-        (Math.atan((pos.x - 250) / (250 - pos.y)) * 180) / Math.PI;
-      console.log(radians);
-    }
-    // Quad 2
-    if (pos.x > 250 && pos.y > 250) {
-      const sideTwo = hippo(pos.x - 250, 250 - pos.y);
-      const radians = (Math.atan((pos.x - 250) / (25 - pos.y)) * 180) / Math.PI;
-      console.log(radians);
-    }
-    // Quad 3
-    if (pos.x <= 250 && pos.y > 250) {
-      const sideTwo = 5;
-    }
-    // Quad 4
-    if (pos.x <= 250 && pos.y <= 250) {
-      const sideTwo = 5;
-    }
-  }
 
   return (
     <CanvasContext.Provider
       value={{ canvasNode, ctx: canvasNode?.getContext("2d") || null, frame }}
     >
-      <Collisions bodies={[]}>
-        <Transform transforms={[]}>
-          <canvas ref={canvasRef} {...props} onMouseMove={draw2} />
-          {!canvasNode ? null : children}
-        </Transform>
-      </Collisions>
+      <Controls>
+        <Collisions bodies={[]}>
+          <Transform transforms={[]}>
+            <canvas ref={canvasRef} {...props} />
+            {!canvasNode ? null : children}
+          </Transform>
+        </Collisions>
+      </Controls>
     </CanvasContext.Provider>
   );
 }
